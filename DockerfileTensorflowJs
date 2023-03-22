@@ -1,0 +1,14 @@
+FROM python:3.6
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN mkdir -p /app/model_tf
+
+COPY ./backend/assets/model_tf/model.h5 ./model_tf/
+COPY ./backend/assets/classes.json ./model_tf/
+COPY ./tensorflowjs.sh .
+
+CMD [ "python", "./your-daemon-or-script.py" ]
